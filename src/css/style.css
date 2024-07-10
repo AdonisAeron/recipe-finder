@@ -1,3 +1,4 @@
+/* General Styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -6,13 +7,273 @@ body {
   color: #333;
 }
 
-header {
+header, footer {
   background-color: #ff6f61;
   color: white;
   text-align: center;
   padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1em;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
 }
 
 main {
   padding: 1em;
+}
+
+footer {
+  text-align: center;
+  padding: 1em;
+  background-color: #ff6f61;
+  color: white;
+}
+
+/* Card Styles */
+.recipe-card, .recipe-detail-card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1em;
+  margin: 1em 0;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.recipe-card img, .recipe-detail-card img {
+  max-width: 100%;
+  border-radius: 4px;
+}
+
+.recipe-card h3, .recipe-detail-card h2 {
+  margin: 0.5em 0;
+}
+
+.recipe-card button, .recipe-detail-card button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.recipe-card button:hover, .recipe-detail-card button:hover {
+  background-color: #45a049;
+}
+
+/* Responsive Design */
+@media (min-width: 600px) {
+  .recipe-card, .recipe-detail-card {
+    display: flex;
+    align-items: center;
+  }
+
+  .recipe-card img, .recipe-detail-card img {
+    max-width: 200px;
+    margin-right: 1em;
+  }
+
+  .recipe-card div, .recipe-detail-card div {
+    flex: 1;
+  }
+}
+
+/* Main Page Styles */
+.search-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.search-section div {
+  display: flex;
+  gap: 0.5em;
+}
+
+.search-section input,
+.search-section select {
+  flex: 1;
+}
+
+.search-section button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.5em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-section button:hover {
+  background-color: #45a049;
+}
+
+/* Results Page Styles */
+.results-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1em;
+}
+
+.results-section .recipe-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
+.results-section .recipe-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.results-section .recipe-card h3 {
+  flex: 1;
+}
+
+.results-section .recipe-card button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.5em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.results-section .recipe-card button:hover {
+  background-color: #45a049;
+}
+
+/* Add these styles for the pagination controls */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1em;
+  }
+  
+.pagination button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+.pagination button:hover {
+    background-color: #45a049;
+}
+  
+@media (min-width: 600px) {
+  .results-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .results-section .recipe-card {
+    flex-direction: row;
+  }
+}
+
+/* Recipe Details Page Styles */
+.recipe-detail-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.recipe-detail-card img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+.recipe-detail-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.recipe-detail-card li {
+  margin-bottom: 0.5em;
+}
+
+.recipe-detail-card button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.5em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.recipe-detail-card button:hover {
+  background-color: #45a049;
+}
+
+/* Favorites Page Styles */
+.favorites-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.favorites-section .recipe-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+}
+
+.favorites-section .recipe-card img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.favorites-section .recipe-card h3 {
+  flex: 1;
+}
+
+.favorites-section .recipe-card button {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  padding: 0.5em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.favorites-section .recipe-card button:hover {
+  background-color: #e55a50;
 }

@@ -1,5 +1,7 @@
+import { qs, setLocalStorage } from "./utils.mjs";
+
 export function loadSearchPage() {
-  const app = document.getElementById("app");
+  const app = qs("#app");
   app.innerHTML = `
       <div>
         <label for="ingredient">Search by Ingredient:</label>
@@ -27,4 +29,27 @@ export function loadSearchPage() {
       <button id="random-recipe">Get Random Recipe</button>
       <a href="favorites.html">Favorites</a>
     `;
-}
+
+    qs("#search-ingredient").addEventListener("click", () => {
+      const ingredient = qs("#ingredient").value;
+      setLocalStorage("searchCriteria", { type: "ingredient", value: ingredient });
+      window.location.href = "../page/results.html";
+    });
+  
+    qs("#search-cuisine").addEventListener("click", () => {
+      const cuisine = qs("#cuisine").value;
+      setLocalStorage("searchCriteria", { type: "cuisine", value: cuisine });
+      window.location.href = "../page/results.html";
+    });
+  
+    qs("#search-meal-type").addEventListener("click", () => {
+      const mealType = qs("#meal-type").value;
+      setLocalStorage("searchCriteria", { type: "mealType", value: mealType });
+      window.location.href = "../page/results.html";
+    });
+  
+    qs("#random-recipe").addEventListener("click", () => {
+        setLocalStorage("searchCriteria", { type: "random" });
+      window.location.href = "../page/results.html";
+    });
+  }
