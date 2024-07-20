@@ -91,21 +91,33 @@ export function loadSearchPage() {
   qs("#search-ingredient").addEventListener("click", () => {
     const ingredient = qs("#ingredient").value;
     const intolerance = qs("#intolerance").value;
-    setLocalStorage("searchCriteria", { type: "ingredient", value: ingredient, intolerance });
+    setLocalStorage("searchCriteria", {
+      type: "ingredient",
+      value: ingredient,
+      intolerance,
+    });
     window.location.href = "../page/results.html";
   });
 
   qs("#search-cuisine").addEventListener("click", () => {
     const cuisine = qs("#cuisine").value;
     const intolerance = qs("#intolerance").value;
-    setLocalStorage("searchCriteria", { type: "cuisine", value: cuisine, intolerance });
+    setLocalStorage("searchCriteria", {
+      type: "cuisine",
+      value: cuisine,
+      intolerance,
+    });
     window.location.href = "../page/results.html";
   });
 
   qs("#search-meal-type").addEventListener("click", () => {
     const mealType = qs("#meal-type").value;
     const intolerance = qs("#intolerance").value;
-    setLocalStorage("searchCriteria", { type: "mealType", value: mealType, intolerance });
+    setLocalStorage("searchCriteria", {
+      type: "mealType",
+      value: mealType,
+      intolerance,
+    });
     window.location.href = "../page/results.html";
   });
 
