@@ -90,9 +90,31 @@ body {
   .recipe-card button:hover, .recipe-detail-card button:hover {
     background-color: #45a049;
   }
+
+  .recipe-card button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 0.5em;
+  }
+  
+  .recipe-card button:hover {
+    background-color: #45a049;
+  }
+  
+  .recipe-card button:last-child {
+    background-color: #ff6f61;
+  }
+  
+  .recipe-card button:last-child:hover {
+    background-color: #e55b58;
+  }
   
   /* Responsive Design */
-  @media (min-width: 600px) {
+  @media (min-width: 770px) {
     .recipe-card, .recipe-detail-card {
       display: flex;
       align-items: center;
@@ -125,20 +147,34 @@ body {
     flex: 1;
   }
   
-  .search-section button {
+  .search-section button, .search-section a {
     background-color: #4caf50;
     color: white;
     border: none;
     padding: 0.5em;
     border-radius: 4px;
     cursor: pointer;
+    text-decoration: none;
+    text-align: center;
   }
   
-  .search-section button:hover {
+  .search-section button:hover, .search-section a:hover {
     background-color: #45a049;
+    text-decoration: none;
   }
   
   /* Results Page Styles */
+
+  .filter-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+  }
+  
+  .filter-container label {
+    margin-right: 0.5em;
+  }
+  
   .results-section {
     display: grid;
     grid-template-columns: 1fr;
@@ -175,7 +211,7 @@ body {
     background-color: #45a049;
   }
   
-  @media (min-width: 600px) {
+  @media (min-width: 770px) {
     .results-section {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -257,3 +293,14 @@ body {
     background-color: #e55b58;
   }
   
+  .alert {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5em;
+    background-color: var(--primary-color);
+    border: 1px solid #ff6f61;
+  }
+  .alert > p {
+    margin: 0;
+  }

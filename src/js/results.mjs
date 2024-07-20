@@ -14,42 +14,44 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function fetchAndDisplayResults(searchCriteria) {
   let results;
-  switch (searchCriteria.type) {
+  const { type, value, intolerance } = searchCriteria;
+  switch (type) {
     case "ingredient":
-      results = await searchByIngredient(searchCriteria.value);
+      results = await searchByIngredient(value, intolerance);
       break;
     case "cuisine":
-      results = await searchByCuisine(searchCriteria.value);
+      results = await searchByCuisine(value, intolerance);
       break;
     case "mealType":
-      results = await searchByMealType(searchCriteria.value);
+      results = await searchByMealType(value, intolerance);
       break;
     case "random":
-      results = await getRandomRecipe();
+      results = await getRandomRecipe(intolerance);
       break;
   }
   displayResults(results);
 }
 
-async function searchByIngredient(ingredient) {
-  const response = await fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredient}&number=${resultsPerPage}&apiKey=${apiKey}`);
-  return await response.json();
-}
-
-async function searchByCuisine(cuisine) {
-  const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?cuisine=${cuisine}&number=${resultsPerPage}&apiKey=${apiKey}`);
+async function searchByIngredient(ingredient, intolerance) {
+  const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?includeIngredients=${ingredient}&number=${resultsPerPage}&intolerances=${intolerance}&apiKey=${apiKey}`);
   const data = await response.json();
   return data.results;
 }
 
-async function searchByMealType(mealType) {
-  const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?type=${mealType}&number=${resultsPerPage}&apiKey=${apiKey}`);
+async function searchByCuisine(cuisine, intolerance) {
+  const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?cuisine=${cuisine}&number=${resultsPerPage}&intolerances=${intolerance}&apiKey=${apiKey}`);
   const data = await response.json();
   return data.results;
 }
 
-async function getRandomRecipe() {
-  const response = await fetch(`https://api.spoonacular.com/recipes/random?number=${resultsPerPage}&apiKey=${apiKey}`);
+async function searchByMealType(mealType, intolerance) {
+  const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?type=${mealType}&number=${resultsPerPage}&intolerances=${intolerance}&apiKey=${apiKey}`);
+  const data = await response.json();
+  return data.results;
+}
+
+async function getRandomRecipe(intolerance) {
+  const response = await fetch(`https://api.spoonacular.com/recipes/random?number=${resultsPerPage}&intolerances=${intolerance}&apiKey=${apiKey}`);
   const data = await response.json();
   return data.recipes;
 }

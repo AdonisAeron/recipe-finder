@@ -1,45 +1,49 @@
-import { qs, getLocalStorage, setLocalStorage, loadHeaderFooter } from "./utils.mjs";
+import { getLocalStorage, loadHeaderFooter, removeFavorite } from "./utils.mjs";
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
   loadHeaderFooter();
-  await displayFavoriteRecipes();
+  displayFavoriteRecipes();
 });
 
-async function displayFavoriteRecipes() {
-  const favoriteIds = getLocalStorage("favorites") || [];
-  const favoritesContainer = qs("#favorites");
+export function displayFavoriteRecipes() {
+  const favorites = getLocalStorage("favorites") || [];
+  const resultsContainer = document.getElementById("favorites");
+  
+  if (!resultsContainer) return;
 
-  if (favoriteIds.length > 0) {
-    const favoriteRecipes = await Promise.all(favoriteIds.map(fetchRecipeById));
-    favoritesContainer.innerHTML = favoriteRecipes.map(recipe => `
+  resultsContainer.innerHTML = "";
+
+  if (favorites.length === 0) {
+    resultsContainer.innerHTML = "<p>No favorite recipes found.</p>";
+    return;
+  }
+
+  favorites.forEach(async (id) => {
+    const recipe = await fetchRecipeById(id);
+    const recipeCard = `
       <div class="recipe-card">
         <img src="${recipe.image}" alt="${recipe.title}">
         <h3>${recipe.title}</h3>
         <button onclick="viewRecipe(${recipe.id})">View Recipe</button>
+        <button onclick="removeFavoriteAndRefresh(${recipe.id})">Remove from Favorites</button>
       </div>
-    `).join("");
-  } else {
-    favoritesContainer.innerHTML = "<p>No favorite recipes saved.</p>";
-  }
+    `;
+    resultsContainer.insertAdjacentHTML("beforeend", recipeCard);
+  });
 }
 
 async function fetchRecipeById(id) {
   const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
   const response = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch recipe: ${response.statusText}`);
-  }
-  return await response.json();
+  const data = await response.json();
+  return data;
 }
 
 window.viewRecipe = function(id) {
-  window.location.href = `/page/recipe-details.html?id=${id}`;
+  window.location.href = `recipe-details.html?id=${id}`;
 }
 
-export function saveFavorite(recipeId) {
-  const favorites = getLocalStorage("favorites") || [];
-  if (!favorites.includes(recipeId)) {
-    favorites.push(recipeId);
-    setLocalStorage("favorites", favorites);
-  }
+window.removeFavoriteAndRefresh = function(id) {
+  removeFavorite(id);
+  displayFavoriteRecipes();
 }

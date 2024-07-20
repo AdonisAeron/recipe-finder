@@ -63,7 +63,7 @@ export function alertMessage(message, scroll = true, duration = 3000) {
       main.removeChild(this);
     }
   })
-  const main = document.querySelector("main");
+  const main = qs("main");
   main.prepend(alert);
 
   if(scroll)
@@ -77,4 +77,20 @@ export function alertMessage(message, scroll = true, duration = 3000) {
 export function removeAllAlerts() {
   const alerts = document.querySelectorAll(".alert");
   alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
+}
+
+export function saveFavorite(recipeId) {
+  const favorites = getLocalStorage("favorites") || [];
+  if (!favorites.includes(recipeId)) {
+    favorites.push(recipeId);
+    setLocalStorage("favorites", favorites);
+    alertMessage("Recipe saved to favorites!");
+  }
+}
+
+export function removeFavorite(recipeId) {
+  let favorites = getLocalStorage("favorites") || [];
+  favorites = favorites.filter(id => id !== recipeId);
+  setLocalStorage("favorites", favorites);
+  alertMessage("Recipe removed from favorites!");
 }

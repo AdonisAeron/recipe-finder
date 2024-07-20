@@ -1,5 +1,4 @@
-import { qs, getParam, loadHeaderFooter } from "./utils.mjs";
-import { saveFavorite } from "./favorites.mjs";
+import { qs, getParam, loadHeaderFooter, saveFavorite } from "./utils.mjs";
 
 const apiKey = import.meta.env.VITE_SPOONACULAR_API_KEY;
 
@@ -39,6 +38,5 @@ function displayRecipeDetails(recipe) {
 
   qs("#save-favorite").addEventListener("click", () => {
     saveFavorite(recipe.id);
-    alert("Recipe saved to favorites!");
   });
 }
